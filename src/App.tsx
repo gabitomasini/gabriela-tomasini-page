@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, MapPin, ExternalLink, Code2, Briefcase, GraduationCap } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, ExternalLink, Code2, Briefcase } from 'lucide-react';
 
 function App() {
   const experiences = [
