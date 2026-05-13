@@ -35,7 +35,7 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-violet-100 dark:selection:bg-violet-900">
       {/* Header / Hero */}
       <header className="max-w-4xl mx-auto pt-20 pb-12 px-6">
         <div className="flex flex-col md:flex-row items-center gap-8">
@@ -47,7 +47,7 @@ function App() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-2 -right-2 bg-blue-600 text-white p-2 rounded-lg shadow-lg">
+            <div className="absolute -bottom-2 -right-2 bg-violet-600 text-white p-2 rounded-lg shadow-lg">
               <Code2 size={20} />
             </div>
           </div>
@@ -56,7 +56,7 @@ function App() {
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
               Gabriela Tomasini
             </h1>
-            <p className="text-xl text-blue-600 dark:text-blue-400 font-medium mb-4">
+            <p className="text-xl text-violet-600 dark:text-violet-400 font-medium mb-4">
               Senior Frontend Developer
             </p>
             <div className="flex flex-wrap justify-center md:justify-start gap-4 text-slate-600 dark:text-slate-400">
@@ -86,14 +86,14 @@ function App() {
             href="https://www.linkedin.com/in/gabriela-tomasini-88276553/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 bg-[#0077b5] text-white rounded-lg hover:opacity-90 transition-opacity shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors shadow-sm"
           >
             <Linkedin size={18} />
             <span>LinkedIn</span>
           </a>
           <a 
             href="mailto:gabriela.tomasini@example.com" 
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
           >
             <Mail size={18} />
             <span>Contact</span>
@@ -105,7 +105,7 @@ function App() {
         {/* About */}
         <section>
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <span className="w-8 h-1 bg-blue-600 rounded-full"></span>
+            <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
             About Me
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -119,17 +119,17 @@ function App() {
         {/* Experience */}
         <section>
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
-            <span className="w-8 h-1 bg-blue-600 rounded-full"></span>
+            <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
             Professional Experience
           </h2>
           <div className="space-y-8">
             {experiences.map((exp, index) => (
               <div key={index} className="relative pl-8 border-l-2 border-slate-200 dark:border-slate-800 group">
-                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-800 group-hover:bg-blue-600 transition-colors"></div>
+                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-800 group-hover:bg-violet-600 transition-colors"></div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                   <div>
                     <h3 className="text-xl font-bold">{exp.role}</h3>
-                    <p className="text-blue-600 dark:text-blue-400 font-medium">{exp.company}</p>
+                    <p className="text-violet-600 dark:text-violet-400 font-medium">{exp.company}</p>
                   </div>
                   <span className="text-sm font-medium text-slate-500 mt-1 md:mt-0">{exp.period}</span>
                 </div>
@@ -144,14 +144,14 @@ function App() {
         {/* Skills */}
         <section>
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <span className="w-8 h-1 bg-blue-600 rounded-full"></span>
+            <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
             Tech Stack
           </h2>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill) => (
               <span 
                 key={skill} 
-                className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-colors"
+                className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium shadow-sm hover:border-violet-400 dark:hover:border-violet-500 transition-colors"
               >
                 {skill}
               </span>
@@ -160,15 +160,15 @@ function App() {
         </section>
 
         {/* Call to Action */}
-        <section className="bg-blue-600 rounded-3xl p-8 md:p-12 text-center text-white shadow-xl shadow-blue-200 dark:shadow-none">
+        <section className="bg-violet-600 rounded-3xl p-8 md:p-12 text-center text-white shadow-xl shadow-violet-200 dark:shadow-none">
           <h2 className="text-3xl font-bold mb-4">Let's build something amazing?</h2>
-          <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto">
+          <p className="text-violet-100 text-lg mb-8 max-w-xl mx-auto">
             I am open to new opportunities and partnerships in international projects. 
             If you are looking for a frontend developer committed to quality, let's talk!
           </p>
           <a 
             href="mailto:gabriela.tomasini@example.com"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-lg"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-violet-700 rounded-full font-bold hover:bg-violet-50 transition-colors shadow-lg"
           >
             Get in touch
             <ExternalLink size={20} />
