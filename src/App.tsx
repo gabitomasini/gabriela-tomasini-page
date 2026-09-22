@@ -17,16 +17,41 @@ function App() {
 
   const [lang, setLang] = useState<Lang>('en');
 
-  const copy: Record<Lang, { aboutTitle: string; aboutText: string; experienceTitle: string; stackTitle: string; ctaTitle: string; ctaText: string; ctaButton: string; contact: string; location: string; years: string; footer: string; }> = {
+  const copy: Record<Lang, {
+    aboutTitle: string;
+    aboutText: string;
+    projectSectionTitle: string;
+    projectBadge: string;
+    projectTagline: string;
+    projectDescription: string;
+    projectLiveButton: string;
+    projectCodeButton: string;
+    experienceTitle: string;
+    stackTitle: string;
+    ctaTitle: string;
+    ctaText: string;
+    ctaButton: string;
+    contact: string;
+    location: string;
+    years: string;
+    footer: string;
+  }> = {
     en: {
       aboutTitle: 'About Me',
       aboutText:
-        'Frontend Developer with nearly 5 years of experience, specializing in building modern and high-performance interfaces. I focus on delivering clean, testable, and scalable code, and I am currently seeking challenging opportunities in the international market.',
+        'Frontend Engineer and UI Designer with 5 years of experience building web applications and developer tools. I take features from initial design concepts all the way to production code—specializing in server-rendered applications, Tailwind CSS, and clean semantic HTML. I care deeply about performance, micro-interactions, and building simple, responsive interfaces for complex data.',
+      projectSectionTitle: 'Featured Project',
+      projectBadge: 'Live in Production',
+      projectTagline: 'Autonomous Flight Tracker & Price Alert Platform',
+      projectDescription:
+        'Fullstack application for automated, continuous flight fare tracking on Google Flights. Features a resilient Playwright scraper orchestrated with an async mutex lock to prevent memory exhaustion in container environments, background scheduling via node-cron, and hybrid LibSQL persistence (local SQLite / Turso Cloud). Visualizes price trends with Recharts and triggers transactional email alerts whenever fares hit target thresholds.',
+      projectLiveButton: 'bipfly.app',
+      projectCodeButton: 'GitHub',
       experienceTitle: 'Professional Experience',
       stackTitle: 'Tech Stack',
       ctaTitle: "Let's build something amazing?",
       ctaText:
-        "I am open to new opportunities and partnerships in international projects. If you are looking for a developer committed to quality, let's talk!",
+        "Open to new opportunities, high-impact projects, and international roles. If you're looking for an engineer focused on quality, performance, and UI polish—let’s talk!",
       ctaButton: 'Get in touch',
       contact: 'Contact',
       location: 'São Paulo, Brazil',
@@ -36,12 +61,19 @@ function App() {
     pt: {
       aboutTitle: 'Sobre mim',
       aboutText:
-        'Desenvolvedora Frontend com quase 5 anos de experiência, especializada em construir interfaces modernas e performáticas. Tenho foco em entregar código limpo, testável e escalável, e atualmente busco oportunidades desafiadoras no mercado internacional.',
+        'Sou Engenheira de Frontend e UI Designer com 5 anos de experiência criando aplicações web e ferramentas para desenvolvedores. Cuido de todo o ciclo de uma funcionalidade: desde a ideia inicial no design até o código rodando em produção. Tenho foco em aplicações renderizadas no servidor, Tailwind CSS e HTML semântico, com atenção especial à performance, microinterações e em transformar dados complexos em interfaces simples e intuitivas.',
+      projectSectionTitle: 'Projeto em Destaque',
+      projectBadge: 'Em Produção',
+      projectTagline: 'Monitoramento Autônomo e Alertas de Tarifas Aéreas',
+      projectDescription:
+        'Aplicação fullstack para rastreamento automatizado e contínuo de passagens no Google Flights. Desenvolvida com scraper resiliente em Playwright (Chromium headless gerenciado por trava de Mutex assíncrono para conter uso de memória em contêineres), agendador em background com node-cron e persistência híbrida via LibSQL (SQLite local / Turso Cloud). Acompanha a evolução de preços com Recharts e dispara alertas transacionais por e-mail quando a tarifa atinge a meta definida pelo usuário.',
+      projectLiveButton: 'bipfly.app',
+      projectCodeButton: 'GitHub',
       experienceTitle: 'Experiência profissional',
       stackTitle: 'Tecnologias',
       ctaTitle: 'Vamos construir algo incrível?',
       ctaText:
-        'Estou aberta a novas oportunidades e parcerias em projetos internacionais. Se você procura uma desenvolvedora comprometida com qualidade, vamos conversar!',
+        'Aberta a novas oportunidades, projetos de alto impacto e posições internacionais. Se você busca uma desenvolvedora focada em qualidade, performance e refinamento de interface—vamos conversar!',
       ctaButton: 'Entrar em contato',
       contact: 'Contato',
       location: 'São Paulo, Brasil',
@@ -90,15 +122,46 @@ Implementação de dashboards de alta complexidade com React, integrando fluxos 
 Gestão de infraestrutura moderna com Docker, Kubernetes e CI/CD, além de integração de storage e segurança via AWS e SSO.`,
   };
 
+  const getDynamicDuration = (startDate: Date, endDate: Date = new Date()): Record<Lang, string> => {
+    const totalMonths = Math.max(
+      1,
+      (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+        (endDate.getMonth() - startDate.getMonth()) +
+        1
+    );
+
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+
+    const formatText = (y: number, m: number, l: Lang) => {
+      const yStr = l === 'en' ? `${y} ${y === 1 ? 'year' : 'years'}` : `${y} ${y === 1 ? 'ano' : 'anos'}`;
+      const mStr = l === 'en' ? `${m} ${m === 1 ? 'month' : 'months'}` : `${m} ${m === 1 ? 'mês' : 'meses'}`;
+
+      if (y > 0 && m > 0) return `${yStr} ${mStr}`;
+      if (y > 0) return yStr;
+      return mStr;
+    };
+
+    return {
+      en: formatText(years, months, 'en'),
+      pt: formatText(years, months, 'pt'),
+    };
+  };
+
+  const charismaDuration = getDynamicDuration(new Date(2025, 3, 1)); // 01/04/2025
+
   const experiences: Experience[] = [
     {
       company: "charisma business intelligence",
-      totalDuration: { en: '1 year 2 months', pt: '1 ano 2 meses' },
+      totalDuration: { en: 'Current Role', pt: 'Cargo atual' },
       positions: [
         {
           title: "Fullstack Software Engineer",
           employmentType: { en: 'Full-time', pt: 'Tempo integral' },
-          period: { en: 'Apr 2025 - Present · 1 year 2 months', pt: 'abr de 2025 - o momento · 1 ano 2 meses' },
+          period: {
+            en: `Apr 2025 - Present · ${charismaDuration.en}`,
+            pt: `abr de 2025 - o momento · ${charismaDuration.pt}`,
+          },
           description: charismaDescriptions,
         },
       ],
@@ -146,6 +209,10 @@ Além disso, participei de iniciativas relacionadas à aplicação de Inteligên
         },
       ],
     },
+  ];
+
+  const projectTechs = [
+    "Next.js 16", "TypeScript", "Playwright", "Turso / SQLite", "Recharts", "Tailwind CSS"
   ];
 
   const skills = [
@@ -237,7 +304,7 @@ Além disso, participei de iniciativas relacionadas à aplicação de Inteligên
             href="https://www.linkedin.com/in/gabriela-tomasini-88276553/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 bg-[#0A66C2] hover:bg-[#004182] text-white rounded-lg transition-colors shadow-sm"
           >
             <Linkedin size={18} />
             <span>LinkedIn</span>
@@ -254,12 +321,102 @@ Além disso, participei de iniciativas relacionadas à aplicação de Inteligên
 
       <main className="max-w-4xl mx-auto px-6 pb-24 space-y-16">
         {/* About */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
+              {copy[lang].aboutTitle}
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{copy[lang].aboutText}</p>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+              {copy[lang].stackTitle}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {skills.map((skill) => (
+                <span 
+                  key={skill} 
+                  className="px-3.5 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-xl text-sm font-medium shadow-sm transition-colors"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Project */}
         <section>
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
-            {copy[lang].aboutTitle}
+            {copy[lang].projectSectionTitle}
           </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{copy[lang].aboutText}</p>
+
+          <div className="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 p-6 md:p-8 backdrop-blur-sm shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 p-2.5 flex items-center justify-center shrink-0 shadow-sm">
+                  <img
+                    src="/bipfly-icon.svg"
+                    alt="BipFly Logo"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+                      BipFly
+                    </h3>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      {copy[lang].projectBadge}
+                    </span>
+                  </div>
+                  <p className="text-sm font-medium text-violet-600 dark:text-violet-400 mt-0.5">
+                    {copy[lang].projectTagline}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+                <a
+                  href="https://bipfly.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-sm font-medium shadow-sm transition-colors"
+                >
+                  <span>{copy[lang].projectLiveButton}</span>
+                  <ExternalLink size={15} />
+                </a>
+                <a
+                  href="https://github.com/gabitomasini/bipfly-app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-medium transition-colors shadow-sm"
+                >
+                  <Github size={15} />
+                  <span>{copy[lang].projectCodeButton}</span>
+                </a>
+              </div>
+            </div>
+
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+              {copy[lang].projectDescription}
+            </p>
+
+            <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+              {projectTechs.map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* Experience */}
@@ -308,40 +465,33 @@ Além disso, participei de iniciativas relacionadas à aplicação de Inteligên
           </div>
         </section>
 
-        {/* Skills */}
-        <section>
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
-            {copy[lang].stackTitle}
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {skills.map((skill) => (
-              <span 
-                key={skill} 
-                className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium shadow-sm hover:border-violet-400 dark:hover:border-violet-500 transition-colors"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        {/* Call to Action */}
-        <section className="bg-violet-600 rounded-3xl p-8 md:p-12 text-center text-white shadow-xl shadow-violet-200 dark:shadow-none">
-          <h2 className="text-3xl font-bold mb-4">{copy[lang].ctaTitle}</h2>
-          <p className="text-violet-100 text-lg mb-8 max-w-xl mx-auto">{copy[lang].ctaText}</p>
-          <a 
-            href="mailto:gabriela_tomasini@hotmail.com"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-violet-700 rounded-full font-bold hover:bg-violet-50 transition-colors shadow-lg"
-          >
-            {copy[lang].ctaButton}
-            <ExternalLink size={20} />
-          </a>
-        </section>
       </main>
 
-      <footer className="max-w-4xl mx-auto px-6 py-12 border-t border-slate-200 dark:border-slate-800 text-center text-slate-500 text-sm">
-        <p>{copy[lang].footer}</p>
+      <footer className="max-w-4xl mx-auto px-6 py-14 border-t border-slate-200 dark:border-slate-800 space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div className="space-y-1">
+            <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+              {copy[lang].ctaTitle}
+            </h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+              {copy[lang].ctaText}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <a 
+              href="mailto:gabriela_tomasini@hotmail.com"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-white text-white dark:text-slate-900 rounded-xl text-sm font-medium transition-colors shadow-sm"
+            >
+              <Mail size={16} />
+              <span>{copy[lang].ctaButton}</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="pt-6 border-t border-slate-100 dark:border-slate-900 text-center text-slate-400 dark:text-slate-600 text-xs">
+          <p>{copy[lang].footer}</p>
+        </div>
       </footer>
     </div>
   );
