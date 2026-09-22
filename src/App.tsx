@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Github, Linkedin, Mail, MapPin, ExternalLink, Code2, Briefcase } from 'lucide-react';
+import { useState, type ReactNode } from 'react';
+import { Github, Linkedin, Mail, ExternalLink, FileText, GraduationCap } from 'lucide-react';
 
 function App() {
   type Lang = 'en' | 'pt';
   type Position = {
-    title: string;
+    title: Record<Lang, string> | string;
     employmentType: Record<Lang, string>;
     period: Record<Lang, string>;
     description: Record<Lang, string>;
@@ -18,8 +18,13 @@ function App() {
   const [lang, setLang] = useState<Lang>('en');
 
   const copy: Record<Lang, {
+    heroHeadline: string;
+    heroTagline: string;
+    metaLine: string;
+    contactButton: string;
+    resumeButton: string;
     aboutTitle: string;
-    aboutText: string;
+    aboutText: ReactNode;
     projectSectionTitle: string;
     projectBadge: string;
     projectTagline: string;
@@ -27,7 +32,10 @@ function App() {
     projectLiveButton: string;
     projectCodeButton: string;
     experienceTitle: string;
+    educationTitle: string;
+    educationDegree: string;
     stackTitle: string;
+    secondaryStackPrefix: string;
     ctaTitle: string;
     ctaText: string;
     ctaButton: string;
@@ -37,9 +45,18 @@ function App() {
     footer: string;
   }> = {
     en: {
+      heroHeadline: 'Frontend Engineer',
+      heroTagline:
+        'Building web applications with strong UI taste and end-to-end execution—from design concepts to production code.',
+      metaLine: 'São Paulo, Brazil • 5+ years of experience',
+      contactButton: 'Contact',
+      resumeButton: 'Resume (PDF)',
       aboutTitle: 'About Me',
-      aboutText:
-        'Frontend Engineer and UI Designer with 5 years of experience building web applications and developer tools. I take features from initial design concepts all the way to production code—specializing in server-rendered applications, Tailwind CSS, and clean semantic HTML. I care deeply about performance, micro-interactions, and building simple, responsive interfaces for complex data.',
+      aboutText: (
+        <>
+          Frontend Engineer with 5 years of experience building web applications and developer tools. I bridge the gap between design concepts and production code—specializing in server-rendered applications, Tailwind CSS, and clean semantic HTML. Adopting <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> with AI-assisted tools (Cursor, OpenSpec), I accelerate feature prototyping while maintaining full ownership of code quality, performance, and UI polish for complex data interfaces.
+        </>
+      ),
       projectSectionTitle: 'Featured Project',
       projectBadge: 'Live in Production',
       projectTagline: 'Autonomous Flight Tracker & Price Alert Platform',
@@ -48,20 +65,32 @@ function App() {
       projectLiveButton: 'bipfly.app',
       projectCodeButton: 'GitHub',
       experienceTitle: 'Professional Experience',
+      educationTitle: 'Education',
+      educationDegree: "Associate Degree in Systems Analysis and Development",
       stackTitle: 'Tech Stack',
-      ctaTitle: "Let's build something amazing?",
+      secondaryStackPrefix: 'Also experienced with',
+      ctaTitle: 'Ready to build something great together?',
       ctaText:
-        "Open to new opportunities, high-impact projects, and international roles. If you're looking for an engineer focused on quality, performance, and UI polish—let’s talk!",
-      ctaButton: 'Get in touch',
+        "I’m currently open to international roles, projects, and partnerships. If you're looking for an engineer focused on performance, clean code, and UI polish—let’s connect!",
+      ctaButton: 'Send Email',
       contact: 'Contact',
       location: 'São Paulo, Brazil',
       years: '5+ years of experience',
       footer: `© ${new Date().getFullYear()} Gabriela Tomasini. Built with React & Tailwind CSS.`,
     },
     pt: {
+      heroHeadline: 'Frontend Engineer',
+      heroTagline:
+        'Criando aplicações web com forte senso de UI e execução de ponta a ponta — dos conceitos de design ao código em produção.',
+      metaLine: 'São Paulo, Brasil • 5+ anos de experiência',
+      contactButton: 'Contato',
+      resumeButton: 'Currículo (PDF)',
       aboutTitle: 'Sobre mim',
-      aboutText:
-        'Sou Engenheira de Frontend e UI Designer com 5 anos de experiência criando aplicações web e ferramentas para desenvolvedores. Cuido de todo o ciclo de uma funcionalidade: desde a ideia inicial no design até o código rodando em produção. Tenho foco em aplicações renderizadas no servidor, Tailwind CSS e HTML semântico, com atenção especial à performance, microinterações e em transformar dados complexos em interfaces simples e intuitivas.',
+      aboutText: (
+        <>
+          Engenheira de Frontend com 5 anos de experiência na criação de aplicações web e ferramentas para desenvolvedores. Conecto conceitos de design ao código em produção, com especialidade em aplicações renderizadas no servidor, Tailwind CSS e HTML semântico. Adotando <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> com ferramentas assistidas por IA (Cursor, OpenSpec), acelero a prototipagem de funcionalidades mantendo controle total sobre a qualidade do código, performance e acabamento visual em interfaces de dados complexos.
+        </>
+      ),
       projectSectionTitle: 'Projeto em Destaque',
       projectBadge: 'Em Produção',
       projectTagline: 'Monitoramento Autônomo e Alertas de Tarifas Aéreas',
@@ -70,11 +99,14 @@ function App() {
       projectLiveButton: 'bipfly.app',
       projectCodeButton: 'GitHub',
       experienceTitle: 'Experiência profissional',
+      educationTitle: 'Formação Acadêmica',
+      educationDegree: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
       stackTitle: 'Tecnologias',
-      ctaTitle: 'Vamos construir algo incrível?',
+      secondaryStackPrefix: 'Também com experiência em',
+      ctaTitle: 'Pronto para construirmos algo incrível juntos?',
       ctaText:
-        'Aberta a novas oportunidades, projetos de alto impacto e posições internacionais. Se você busca uma desenvolvedora focada em qualidade, performance e refinamento de interface—vamos conversar!',
-      ctaButton: 'Entrar em contato',
+        'Estou aberta a oportunidades internacionais, projetos e parcerias. Se você procura uma engenheira com foco em performance, código limpo e refinamento de UI—vamos nos conectar!',
+      ctaButton: 'Enviar E-mail',
       contact: 'Contato',
       location: 'São Paulo, Brasil',
       years: '5+ anos de experiência',
@@ -84,42 +116,47 @@ function App() {
 
   const brqDescriptions: Record<'junior' | 'technician' | 'intern', Record<Lang, string>> = {
     junior: {
-      en: `While working at Itaú (largest bank in Latin America), I was responsible for developing microfrontends using Angular, creating responsive layouts with HTML, CSS, Voxel (Itaú's design system), and integrating technologies such as Typescript and Javascript. Additionally, I wrote unit tests using Jest and implemented end-to-end tests with Cypress. The CI/CD infrastructure was managed through AWS, and code versioning was handled with GIT.
-
-I also actively participated in discussions and decisions regarding the refinement, with a focus on modernizing the legacy system within the "Poderes" project from the Customer Experience Transformation squad, contributing to improvements in the interface and user experience.`,
-      pt: `Durante meu tempo no Itaú, fui responsável pelo desenvolvimento de microfrontends utilizando Angular, criando layouts responsivos com HTML, CSS, Voxel (o design system do Itaú) e integrando tecnologias como Typescript e Javascript. Além disso, escrevi testes unitários com Jest e implementei testes end-to-end utilizando Cypress. A infraestrutura de CI/CD foi gerida através de AWS, e o versionamento de código foi realizado com GIT.
-
-Também participei ativamente de discussões e decisões sobre o refinamento das telas do sistema, com foco na modernização do sistema legado da squad de Transformação da Experiência do Cliente, no projeto "Poderes", contribuindo para a melhoria da interface e da experiência do usuário.`,
+      en: `- Developed microfrontends using Angular, TypeScript/JavaScript, HTML, CSS, and Voxel (Itaú’s design system).
+- Implemented unit tests with Jest, end-to-end testing with Cypress, and versioning with Git under AWS-managed CI/CD infrastructure.
+- Actively participated in technical discussions and refinement to modernize legacy systems and improve user experience.`,
+      pt: `- Desenvolvimento de microfrontends utilizando Angular, TypeScript/JavaScript, HTML, CSS e Voxel (o design system do Itaú).
+- Implementação de testes unitários com Jest, testes ponta a ponta com Cypress e versionamento com Git sob infraestrutura de CI/CD gerenciada pela AWS.
+- Participação ativa em discussões técnicas e refinamentos para modernizar sistemas legados e aprimorar a experiência do usuário.`,
     },
     technician: {
-      en: `Experience in developing microfrontends using the Angular framework, working with technologies such as JavaScript/Typescript, HTML, and CSS. Additionally, I have expertise in implementing regression tests using Cypress to ensure the stability and functionality of the applications.`,
-      pt: `Experiência no desenvolvimento de microfrontends utilizando o framework Angular, trabalhando com tecnologias como JavaScript/Typescript, HTML e CSS. Além disso, tenho conhecimento na implementação de testes regressivos com Cypress, garantindo a estabilidade e funcionalidade das aplicações.`,
+      en: `- Built microfrontends with Angular, TypeScript, HTML, and CSS.
+- Implemented regression test suites using Cypress to ensure application stability.`,
+      pt: `- Construção de microfrontends com Angular, TypeScript, HTML e CSS.
+- Implementação de suítes de testes de regressão com Cypress para garantir a estabilidade das aplicações.`,
     },
     intern: {
-      en: `Experience in developing microfrontends using Angular (Typescript, HTML e Css).`,
-      pt: `Experiência em desenvolvimento de Microfrontend com Angular (Typescript, HTML e Css).`,
+      en: `- Gained hands-on experience developing microfrontends using Angular, TypeScript, HTML, and CSS.`,
+      pt: `- Experiência prática no desenvolvimento de microfrontends utilizando Angular, TypeScript, HTML e CSS.`,
     },
   };
 
   const charismaDescriptions: Record<Lang, string> = {
-    en: `Full-cycle software development, from data modeling to the implementation of AI-driven solutions for internal process optimization.
+    en: `- Delivered full-cycle software development, managing everything from data modeling to implementing AI-driven solutions for internal process optimization.
+- Applied Spec-Driven Development (SDD) using OpenSpec and Cursor to structure clear system specifications, accelerating full-stack feature delivery.
+- Engineered full-stack applications (Node.js, Next.js, PostgreSQL) focused on performance and legacy system scalability.
+- Applied Prompt Engineering to automate editorial workflows and structure unformatted data using AI.
+- Built complex React dashboards integrating audit workflows and structured log monitoring.
+- Managed modern infrastructure using Docker, Kubernetes, and CI/CD pipelines, alongside AWS storage and SSO security integrations.`,
+    pt: `- Atuação no ciclo completo de software, desde a modelagem de dados até a implementação de soluções baseadas em IA para otimização de processos internos.
+- Aplicação de Spec-Driven Development (SDD) com OpenSpec e Cursor para estruturar especificações claras de sistema, acelerando a entrega de funcionalidades full-stack.
+- Desenvolvimento de aplicações Full Stack (Node.js, Next.js, PostgreSQL) com foco em performance e escalabilidade de sistemas legados.
+- Aplicação de Prompt Engineering para automação de tarefas editoriais e estruturação de dados não formatados via IA.
+- Construção de dashboards de alta complexidade com React, integrando fluxos de auditoria e monitoramento de logs.
+- Gestão de infraestrutura com Docker, Kubernetes e CI/CD, além de integração de storage e segurança via AWS e SSO.`,
+  };
 
-Development of Full Stack applications (Node.js/Next.js/PostgreSQL) focused on performance and the scalability of legacy systems.
-
-Application of Prompt Engineering for automating editorial tasks and structuring unformatted data using AI.
-
-Implementation of high-complexity dashboards with React, integrating audit workflows and structured log monitoring.
-
-Management of modern infrastructure using Docker, Kubernetes, and CI/CD, alongside storage and security integrations via AWS and SSO.`,
-    pt: `Experiência no ciclo completo de software, desde a modelagem de dados até a implementação de soluções baseadas em IA para otimização de processos internos.
-
-Desenvolvimento de aplicações Full Stack (Node/Next.js/PostgreSQL) com foco em performance e escalabilidade de sistemas legados.
-
-Aplicação de Prompt Engineering para automação de tarefas editoriais e estruturação de dados não formatados via IA.
-
-Implementação de dashboards de alta complexidade com React, integrando fluxos de auditoria e monitoramento de logs.
-
-Gestão de infraestrutura moderna com Docker, Kubernetes e CI/CD, além de integração de storage e segurança via AWS e SSO.`,
+  const aliceDescriptions: Record<Lang, string> = {
+    en: `- Developed functional and high-performing frontend interfaces using Vue 3 and Jest for administrative member support systems.
+- Collaborated on AI initiatives, integrating internal systems with OpenAI solutions to increase service scalability, agility, and efficiency.
+- Ensured high code quality and test coverage aligned with business goals within a high-performing team.`,
+    pt: `- Desenvolvimento de interfaces frontend funcionais e de alta performance utilizando Vue 3 e Jest para sistemas de atendimento administrativo de membros.
+- Colaboração em iniciativas de IA, integrando sistemas internos com soluções da OpenAI para aumentar escalabilidade, agilidade e eficiência nos atendimentos.
+- Garantia de alta qualidade de código e cobertura de testes alinhada aos objetivos estratégicos do negócio em um time de alto nível.`,
   };
 
   const getDynamicDuration = (startDate: Date, endDate: Date = new Date()): Record<Lang, string> => {
@@ -174,14 +211,7 @@ Gestão de infraestrutura moderna com Docker, Kubernetes e CI/CD, além de integ
           title: "Software Engineer (Pleno)",
           employmentType: { en: 'Full-time', pt: 'Tempo integral' },
           period: { en: 'Jun 2024 - Dec 2024 · 7 months', pt: 'jun de 2024 - dez de 2024 · 7 meses' },
-          description: {
-            en: `Working at Alice I had the opportunity to be part of a high-performing team, where I contributed to significant deliverables that directly impacted Alice's administrative support for its members. I focused on frontend development, leveraging technologies such as Vue 3 and Jest to ensure the creation of functional, high-performing, and thoroughly tested interfaces aligned with user needs and the company's strategic objectives.
-
-Additionally, I participated in initiatives involving the application of Artificial Intelligence, collaborating on deliverables that integrated Alice's system with OpenAI solutions. This integration enhanced scalability and agility in customer service, optimizing processes and increasing the efficiency of the services provided.`,
-            pt: `Nesta experiência profissional, tive a oportunidade de integrar um time de alto nível, onde contribuí para entregas significativas que impactaram diretamente o atendimento administrativo da Alice aos seus membros. Atuei com foco no desenvolvimento frontend, utilizando tecnologias como Vue 3 e Jest, assegurando a criação de interfaces funcionais, performáticas e devidamente testadas, alinhadas às necessidades dos usuários e aos objetivos estratégicos da empresa.
-
-Além disso, participei de iniciativas relacionadas à aplicação de Inteligência Artificial, colaborando em entregas que integraram o sistema da Alice com soluções da OpenAI. Essa integração promoveu maior escalabilidade e agilidade nos atendimentos, otimizando processos e ampliando a eficiência do serviço prestado.`,
-          },
+          description: aliceDescriptions,
         },
       ],
     },
@@ -190,7 +220,10 @@ Além disso, participei de iniciativas relacionadas à aplicação de Inteligên
       totalDuration: { en: '2 years 9 months', pt: '2 anos 9 meses' },
       positions: [
         {
-          title: "Desenvolvedora Front-End Jr",
+          title: {
+            en: "Desenvolvedora Front-End Jr [Allocated at Itaú]",
+            pt: "Desenvolvedora Front-End Jr [Alocada no Itaú]",
+          },
           employmentType: { en: 'Full-time', pt: 'Tempo integral' },
           period: { en: 'Jan 2023 - May 2024 · 1 year 5 months', pt: 'jan de 2023 - mai de 2024 · 1 ano 5 meses' },
           description: brqDescriptions.junior,
@@ -212,114 +245,119 @@ Além disso, participei de iniciativas relacionadas à aplicação de Inteligên
   ];
 
   const projectTechs = [
-    "Next.js 16", "TypeScript", "Playwright", "Turso / SQLite", "Recharts", "Tailwind CSS"
+    "Next.js 16", "TypeScript", "Playwright", "Turso / SQLite", "Railway", "Resend", "Recharts", "Tailwind CSS"
   ];
 
-  const skills = [
-    "React", "TypeScript", "JavaScript", "Tailwind CSS", 
-    "Next.js", "Redux / Context API", "Styled Components", 
-    "Jest / RTL", "Git / GitHub", "Agile / Scrum",
-    "SQL", "Node.js", "Vue.js", "Angular", "AWS Certified"
+  const coreSkills = [
+    "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Turso/SQLite"
   ];
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-violet-100 dark:selection:bg-violet-900">
       {/* Header / Hero */}
-      <header className="max-w-4xl mx-auto pt-10 pb-12 px-6">
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          <div className="relative">
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden ring-4 ring-white dark:ring-slate-800 shadow-xl">
+      <header className="max-w-4xl mx-auto pt-14 pb-12 px-6">
+        <div className="flex items-start justify-between gap-4 mb-6">
+          <div className="flex items-center gap-4 sm:gap-5">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full overflow-hidden ring-2 ring-slate-200 dark:ring-slate-800 shrink-0 shadow-sm">
               <img 
                 src="https://github.com/gabitomasini.png" 
                 alt="Gabriela Tomasini" 
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-2 -right-2 bg-violet-600 text-white p-2 rounded-lg shadow-lg">
-              <Code2 size={20} />
-            </div>
-          </div>
-          
-          <div className="flex-1 text-center md:text-left">
-            <div className="flex flex-wrap items-center justify-center md:justify-between gap-3 mb-2">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+            <div>
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
                 Gabriela Tomasini
               </h1>
-              <div className="inline-flex rounded-full border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 p-1">
-                <button
-                  type="button"
-                  onClick={() => setLang('en')}
-                  className={[
-                    "px-3 py-1.5 text-sm font-medium rounded-full transition-colors",
-                    lang === 'en'
-                      ? "bg-violet-600 text-white"
-                      : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800",
-                  ].join(" ")}
-                  aria-pressed={lang === 'en'}
-                >
-                  EN
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLang('pt')}
-                  className={[
-                    "px-3 py-1.5 text-sm font-medium rounded-full transition-colors",
-                    lang === 'pt'
-                      ? "bg-violet-600 text-white"
-                      : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800",
-                  ].join(" ")}
-                  aria-pressed={lang === 'pt'}
-                >
-                  PT
-                </button>
-              </div>
+              <p className="text-base sm:text-lg md:text-xl text-violet-600 dark:text-violet-400 font-semibold mt-0.5">
+                {copy[lang].heroHeadline}
+              </p>
             </div>
-            <p className="text-xl text-violet-600 dark:text-violet-400 font-medium mb-4">
-              {lang === 'en' ? 'Senior Frontend Developer' : 'Desenvolvedora Frontend Sênior'}
-            </p>
-            <div className="flex flex-wrap justify-center md:justify-start gap-4 text-slate-600 dark:text-slate-400">
-              <div className="flex items-center gap-1.5">
-                <MapPin size={18} />
-                <span>{copy[lang].location}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Briefcase size={18} />
-                <span>{copy[lang].years}</span>
-              </div>
-            </div>
+          </div>
+
+          <div className="inline-flex rounded-full border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 p-1 shrink-0 mt-1">
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              className={[
+                "px-3 py-1 text-xs font-medium rounded-full transition-colors",
+                lang === 'en'
+                  ? "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900"
+                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800",
+              ].join(" ")}
+              aria-pressed={lang === 'en'}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang('pt')}
+              className={[
+                "px-3 py-1 text-xs font-medium rounded-full transition-colors",
+                lang === 'pt'
+                  ? "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900"
+                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800",
+              ].join(" ")}
+              aria-pressed={lang === 'pt'}
+            >
+              PT
+            </button>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
+        <div className="space-y-3">
+          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+            {copy[lang].heroTagline}
+          </p>
+
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-normal pt-1">
+            {copy[lang].metaLine}
+          </p>
+        </div>
+
+        {/* Action Buttons: Bordered links */}
+        <div className="flex flex-wrap items-center justify-start gap-x-4 sm:gap-x-5 gap-y-3 pt-6">
+          <a 
+            href="mailto:gabriela_tomasini@hotmail.com" 
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 rounded-xl text-sm font-medium transition-all shadow-xs"
+          >
+            <Mail size={16} />
+            <span>{copy[lang].contactButton}</span>
+          </a>
+
           <a 
             href="https://github.com/gabitomasini" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 bg-slate-900 dark:bg-slate-800 text-white rounded-lg hover:bg-slate-800 dark:hover:bg-slate-700 transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 rounded-xl text-sm font-medium transition-all shadow-xs"
           >
-            <Github size={18} />
+            <Github size={16} />
             <span>GitHub</span>
           </a>
+
           <a 
             href="https://www.linkedin.com/in/gabriela-tomasini-88276553/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 bg-[#0A66C2] hover:bg-[#004182] text-white rounded-lg transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 rounded-xl text-sm font-medium transition-all shadow-xs"
           >
-            <Linkedin size={18} />
+            <Linkedin size={16} />
             <span>LinkedIn</span>
           </a>
+
           <a 
-            href="mailto:gabriela_tomasini@hotmail.com" 
-            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
+            href="/resume.pdf" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 rounded-xl text-sm font-medium transition-all shadow-xs"
           >
-            <Mail size={18} />
-            <span>{copy[lang].contact}</span>
+            <FileText size={16} />
+            <span>{copy[lang].resumeButton}</span>
           </a>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 pb-24 space-y-16">
+      <main className="max-w-4xl mx-auto px-6 pb-24 space-y-12 md:space-y-14">
         {/* About */}
         <section className="space-y-6">
           <div>
@@ -327,23 +365,27 @@ Além disso, participei de iniciativas relacionadas à aplicação de Inteligên
               <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
               {copy[lang].aboutTitle}
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{copy[lang].aboutText}</p>
+            <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{copy[lang].aboutText}</p>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
               {copy[lang].stackTitle}
             </h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {coreSkills.map((skill) => (
                 <span 
                   key={skill} 
-                  className="px-3.5 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-xl text-sm font-medium shadow-sm transition-colors"
+                  className="px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 shadow-xs"
                 >
                   {skill}
                 </span>
               ))}
             </div>
+            <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+              <span className="font-medium text-slate-600 dark:text-slate-300">{copy[lang].secondaryStackPrefix}:</span>{" "}
+              Vue 3, Angular, Jest, Cypress, Docker, AWS
+            </p>
           </div>
         </section>
 
@@ -445,16 +487,27 @@ Além disso, participei de iniciativas relacionadas à aplicação de Inteligên
                       >
                         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1">
                           <div>
-                            <p className="text-base font-semibold text-slate-900 dark:text-slate-100">{pos.title}</p>
+                            <p className="text-base font-semibold text-slate-900 dark:text-slate-100">
+                              {typeof pos.title === 'string' ? pos.title : pos.title[lang]}
+                            </p>
                             <p className="text-sm text-slate-600 dark:text-slate-400">{pos.employmentType[lang]}</p>
                           </div>
                           <p className="text-sm font-medium text-slate-500">{pos.period[lang]}</p>
                         </div>
 
-                        <div className="mt-4 space-y-3 text-slate-700 dark:text-slate-300 leading-relaxed">
-                          {pos.description[lang].split("\n\n").map((paragraph, paragraphIndex) => (
-                            <p key={`${lang}-${paragraphIndex}`}>{paragraph}</p>
-                          ))}
+                        <div className="mt-4 space-y-2.5 text-slate-700 dark:text-slate-300 leading-relaxed text-sm md:text-base">
+                          {pos.description[lang].split("\n").filter(Boolean).map((line, lineIndex) => {
+                            const isBullet = line.trim().startsWith("- ");
+                            const text = isBullet ? line.trim().slice(2) : line;
+                            return isBullet ? (
+                              <div key={`${lang}-${lineIndex}`} className="flex items-start gap-2.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-violet-600 dark:bg-violet-400 mt-2 shrink-0"></span>
+                                <span className="flex-1">{text}</span>
+                              </div>
+                            ) : (
+                              <p key={`${lang}-${lineIndex}`}>{text}</p>
+                            );
+                          })}
                         </div>
                       </div>
                     ))}
@@ -465,26 +518,74 @@ Além disso, participei de iniciativas relacionadas à aplicação de Inteligên
           </div>
         </section>
 
+        {/* Education */}
+        <section>
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+            <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
+            {copy[lang].educationTitle}
+          </h2>
+
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 p-5 md:p-6 backdrop-blur-sm shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-start sm:items-center gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-200/60 dark:border-violet-800/40 flex items-center justify-center shrink-0 text-violet-600 dark:text-violet-400">
+                  <GraduationCap size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
+                    {copy[lang].educationDegree}
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+                    Universidade Anhembi Morumbi
+                  </p>
+                </div>
+              </div>
+
+              <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 text-slate-600 dark:text-slate-300 shrink-0 self-start sm:self-center">
+                2021 – 2024
+              </span>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <footer className="max-w-4xl mx-auto px-6 py-14 border-t border-slate-200 dark:border-slate-800 space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
-            <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
               {copy[lang].ctaTitle}
             </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+            <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
               {copy[lang].ctaText}
             </p>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
             <a 
               href="mailto:gabriela_tomasini@hotmail.com"
               className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-white text-white dark:text-slate-900 rounded-xl text-sm font-medium transition-colors shadow-sm"
             >
               <Mail size={16} />
               <span>{copy[lang].ctaButton}</span>
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/gabriela-tomasini-88276553/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#0A66C2] hover:bg-[#004182] text-white rounded-xl text-sm font-medium transition-colors shadow-sm"
+            >
+              <Linkedin size={16} />
+              <span>LinkedIn</span>
+            </a>
+            <a 
+              href="https://github.com/gabitomasini"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-xl text-sm font-medium transition-colors shadow-sm"
+            >
+              <Github size={16} />
+              <span>GitHub</span>
             </a>
           </div>
         </div>
