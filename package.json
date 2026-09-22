@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "generate:pdf": "node scripts/generate-pdf.js",
+    "prebuild": "node scripts/generate-pdf.js",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
+    "jspdf": "^4.2.1",
     "lucide-react": "^0.474.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"

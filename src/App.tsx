@@ -309,6 +309,21 @@ function App() {
     }
   };
 
+  const handleDownloadResume = async () => {
+    try {
+      const { downloadResumePDF } = await import('./utils/generateResumePDF');
+      downloadResumePDF('Gabriela_Tomasini_Frontend_Engineer_CV.pdf');
+    } catch {
+      // Fallback: direct download link trigger
+      const link = document.createElement('a');
+      link.href = '/Gabriela_Tomasini_Frontend_Engineer_CV.pdf';
+      link.download = 'Gabriela_Tomasini_Frontend_Engineer_CV.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-violet-100 dark:selection:bg-violet-900">
       {/* Header / Hero */}
@@ -403,10 +418,13 @@ function App() {
           </a>
 
           <a 
-            href="/resume.pdf" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 rounded-xl text-sm font-medium transition-all shadow-xs"
+            href="/Gabriela_Tomasini_Frontend_Engineer_CV.pdf" 
+            download="Gabriela_Tomasini_Frontend_Engineer_CV.pdf"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDownloadResume();
+            }}
+            className="hidden items-center gap-1.5 px-3.5 py-2 border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 rounded-xl text-sm font-medium transition-all shadow-xs cursor-pointer"
           >
             <FileText size={16} />
             <span>{copy[lang].resumeButton}</span>
