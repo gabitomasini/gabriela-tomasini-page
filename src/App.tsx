@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { Github, Linkedin, Mail, ExternalLink, FileText, GraduationCap } from 'lucide-react';
 
 function App() {
@@ -36,6 +36,10 @@ function App() {
     educationDegree: string;
     stackTitle: string;
     secondaryStackPrefix: string;
+    navAbout: string;
+    navProject: string;
+    navExperience: string;
+    navEducation: string;
     ctaTitle: string;
     ctaText: string;
     ctaButton: string;
@@ -69,6 +73,10 @@ function App() {
       educationDegree: "Associate Degree in Systems Analysis and Development",
       stackTitle: 'Tech Stack',
       secondaryStackPrefix: 'Also experienced with',
+      navAbout: 'About Me',
+      navProject: 'Featured Project',
+      navExperience: 'Experience',
+      navEducation: 'Education',
       ctaTitle: 'Ready to build something great together?',
       ctaText:
         "I’m currently open to international roles, projects, and partnerships. If you're looking for an engineer focused on performance, clean code, and UI polish—let’s connect!",
@@ -103,6 +111,10 @@ function App() {
       educationDegree: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
       stackTitle: 'Tecnologias',
       secondaryStackPrefix: 'Também com experiência em',
+      navAbout: 'Sobre mim',
+      navProject: 'Projeto em Destaque',
+      navExperience: 'Experiência',
+      navEducation: 'Educação',
       ctaTitle: 'Pronto para construirmos algo incrível juntos?',
       ctaText:
         'Estou aberta a oportunidades internacionais, projetos e parcerias. Se você procura uma engenheira com foco em performance, código limpo e refinamento de UI—vamos nos conectar!',
@@ -252,6 +264,51 @@ function App() {
     "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Turso/SQLite"
   ];
 
+  const [activeSection, setActiveSection] = useState<string>('about');
+  const [isNavVisible, setIsNavVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    const sectionIds = ['about', 'featured-project', 'experience', 'education'];
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsNavVisible(currentScrollY > 180);
+
+      // If user is near the bottom of the page, always activate the last section (Education)
+      const scrollBottom = window.innerHeight + currentScrollY;
+      const isAtBottom = document.documentElement.scrollHeight - scrollBottom <= 160;
+      if (isAtBottom) {
+        setActiveSection(sectionIds[sectionIds.length - 1]);
+        return;
+      }
+
+      // Check sections from bottom to top with an adaptive threshold
+      const scrollPosition = currentScrollY + Math.min(260, window.innerHeight * 0.35);
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el) {
+          const top = el.getBoundingClientRect().top + currentScrollY;
+          if (scrollPosition >= top) {
+            setActiveSection(sectionIds[i]);
+            return;
+          }
+        }
+      }
+      setActiveSection(sectionIds[0]);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-violet-100 dark:selection:bg-violet-900">
       {/* Header / Hero */}
@@ -357,9 +414,49 @@ function App() {
         </div>
       </header>
 
+      {/* Floating Dock Navigation Menu */}
+      <nav 
+        aria-label="Section navigation" 
+        className={[
+          "fixed top-4 left-1/2 -translate-x-1/2 z-50 w-fit max-w-[calc(100vw-2rem)] rounded-full border border-slate-200/80 dark:border-slate-800/80 bg-white/75 dark:bg-slate-900/75 backdrop-blur-md shadow-sm p-1 transition-all duration-300",
+          isNavVisible
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-2 pointer-events-none"
+        ].join(" ")}
+      >
+        <div className="flex items-center gap-0.5 overflow-x-auto no-scrollbar">
+          {[
+            { id: 'about', label: copy[lang].navAbout },
+            { id: 'featured-project', label: copy[lang].navProject },
+            { id: 'experience', label: copy[lang].navExperience },
+            { id: 'education', label: copy[lang].navEducation },
+          ].map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(item.id);
+                }}
+                className={[
+                  "px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap",
+                  isActive
+                    ? "bg-slate-100/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 shadow-2xs"
+                    : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100/60 dark:hover:bg-slate-800/50"
+                ].join(" ")}
+              >
+                {item.label}
+              </a>
+            );
+          })}
+        </div>
+      </nav>
+
       <main className="max-w-4xl mx-auto px-6 pb-24 space-y-12 md:space-y-14">
         {/* About */}
-        <section className="space-y-6">
+        <section id="about" className="space-y-6 scroll-mt-24">
           <div>
             <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
               <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
@@ -390,7 +487,7 @@ function App() {
         </section>
 
         {/* Featured Project */}
-        <section>
+        <section id="featured-project" className="scroll-mt-24">
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
             {copy[lang].projectSectionTitle}
@@ -462,7 +559,7 @@ function App() {
         </section>
 
         {/* Experience */}
-        <section>
+        <section id="experience" className="scroll-mt-24">
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
             <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
             {copy[lang].experienceTitle}
@@ -519,7 +616,7 @@ function App() {
         </section>
 
         {/* Education */}
-        <section>
+        <section id="education" className="scroll-mt-24">
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
             {copy[lang].educationTitle}
