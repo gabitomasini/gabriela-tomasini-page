@@ -26,11 +26,15 @@ function App() {
     aboutTitle: string;
     aboutText: ReactNode;
     projectSectionTitle: string;
-    projectBadge: string;
-    projectTagline: string;
-    projectDescription: string;
-    projectLiveButton: string;
     projectCodeButton: string;
+    bipflyBadge: string;
+    bipflyTagline: string;
+    bipflyDescription: string;
+    bipflyLiveButton: string;
+    serpLabBadge: string;
+    serpLabTagline: string;
+    serpLabDescription: string;
+    serpLabLiveButton: string;
     experienceTitle: string;
     educationTitle: string;
     educationDegree: string;
@@ -61,20 +65,25 @@ function App() {
           Frontend Engineer with 5 years of experience building web applications and developer tools. I bridge the gap between design concepts and production code—specializing in server-rendered applications, Tailwind CSS, and clean semantic HTML. Adopting <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> with AI-assisted tools (Cursor, OpenSpec), I accelerate feature prototyping while maintaining full ownership of code quality, performance, and UI polish for complex data interfaces.
         </>
       ),
-      projectSectionTitle: 'Featured Project',
-      projectBadge: 'Live in Production',
-      projectTagline: 'Autonomous Flight Tracker & Price Alert Platform',
-      projectDescription:
-        'Fullstack application for automated, continuous flight fare tracking on Google Flights. Features a resilient Playwright scraper orchestrated with an async mutex lock to prevent memory exhaustion in container environments, background scheduling via node-cron, and hybrid LibSQL persistence (local SQLite / Turso Cloud). Visualizes price trends with Recharts and triggers transactional email alerts whenever fares hit target thresholds.',
-      projectLiveButton: 'bipfly.app',
+      projectSectionTitle: 'Featured Projects',
       projectCodeButton: 'GitHub',
+      bipflyBadge: 'Live in Production',
+      bipflyTagline: 'Autonomous Flight Tracker & Price Alert Platform',
+      bipflyDescription:
+        'Fullstack application for automated, continuous flight fare tracking on Google Flights. Features a resilient Playwright scraper orchestrated with an async mutex lock to prevent memory exhaustion in container environments, background scheduling via node-cron, and hybrid LibSQL persistence (local SQLite / Turso Cloud). Visualizes price trends with Recharts and triggers transactional email alerts whenever fares hit target thresholds.',
+      bipflyLiveButton: 'bipfly.app',
+      serpLabBadge: 'Live in Production',
+      serpLabTagline: 'Developer Console & SERP Query Playground',
+      serpLabDescription:
+        'Developer console and API playground built with Rails 8 and Hotwire for real-time search result inspection, combining ViewComponents, asynchronous Turbo Frame updates, and latency telemetry with zero SPA bloat.',
+      serpLabLiveButton: 'serp-lab.onrender.com',
       experienceTitle: 'Professional Experience',
       educationTitle: 'Education',
       educationDegree: "Associate Degree in Systems Analysis and Development",
       stackTitle: 'Tech Stack',
       secondaryStackPrefix: 'Also experienced with',
       navAbout: 'About Me',
-      navProject: 'Featured Project',
+      navProject: 'Featured Projects',
       navExperience: 'Experience',
       navEducation: 'Education',
       ctaTitle: 'Ready to build something great together?',
@@ -99,20 +108,25 @@ function App() {
           Engenheira de Frontend com 5 anos de experiência na criação de aplicações web e ferramentas para desenvolvedores. Conecto conceitos de design ao código em produção, com especialidade em aplicações renderizadas no servidor, Tailwind CSS e HTML semântico. Adotando <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> com ferramentas assistidas por IA (Cursor, OpenSpec), acelero a prototipagem de funcionalidades mantendo controle total sobre a qualidade do código, performance e acabamento visual em interfaces de dados complexos.
         </>
       ),
-      projectSectionTitle: 'Projeto em Destaque',
-      projectBadge: 'Em Produção',
-      projectTagline: 'Monitoramento Autônomo e Alertas de Tarifas Aéreas',
-      projectDescription:
-        'Aplicação fullstack para rastreamento automatizado e contínuo de passagens no Google Flights. Desenvolvida com scraper resiliente em Playwright (Chromium headless gerenciado por trava de Mutex assíncrono para conter uso de memória em contêineres), agendador em background com node-cron e persistência híbrida via LibSQL (SQLite local / Turso Cloud). Acompanha a evolução de preços com Recharts e dispara alertas transacionais por e-mail quando a tarifa atinge a meta definida pelo usuário.',
-      projectLiveButton: 'bipfly.app',
+      projectSectionTitle: 'Projetos em Destaque',
       projectCodeButton: 'GitHub',
+      bipflyBadge: 'Em Produção',
+      bipflyTagline: 'Monitoramento Autônomo e Alertas de Tarifas Aéreas',
+      bipflyDescription:
+        'Aplicação fullstack para rastreamento automatizado e contínuo de passagens no Google Flights. Desenvolvida com scraper resiliente em Playwright (Chromium headless gerenciado por trava de Mutex assíncrono para conter uso de memória em contêineres), agendador em background com node-cron e persistência híbrida via LibSQL (SQLite local / Turso Cloud). Acompanha a evolução de preços com Recharts e dispara alertas transacionais por e-mail quando a tarifa atinge a meta definida pelo usuário.',
+      bipflyLiveButton: 'bipfly.app',
+      serpLabBadge: 'Em Produção',
+      serpLabTagline: 'Console para Desenvolvedores e Playground de APIs SERP',
+      serpLabDescription:
+        'Developer console e API playground em Rails 8 e Hotwire para inspeção de resultados de busca em tempo real, combinando ViewComponents, atualizações assíncronas com Turbo Frames e telemetria de latência sem inchaço de SPA.',
+      serpLabLiveButton: 'serp-lab.onrender.com',
       experienceTitle: 'Experiência profissional',
       educationTitle: 'Formação Acadêmica',
       educationDegree: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
       stackTitle: 'Tecnologias',
       secondaryStackPrefix: 'Também com experiência em',
       navAbout: 'Sobre mim',
-      navProject: 'Projeto em Destaque',
+      navProject: 'Projetos em Destaque',
       navExperience: 'Experiência',
       navEducation: 'Educação',
       ctaTitle: 'Pronto para construirmos algo incrível juntos?',
@@ -256,12 +270,29 @@ function App() {
     },
   ];
 
-  const projectTechs = [
+  const bipflyTechs = [
     "Next.js 16", "TypeScript", "Playwright", "Turso / SQLite", "Railway", "Resend", "Recharts", "Tailwind CSS"
   ];
 
+  const serpLabTechs = [
+    "Ruby on Rails 8", "Hotwire (Turbo 8)", "Stimulus", "Tailwind CSS", "ViewComponent", "SQLite", "Render"
+  ];
+
   const coreSkills = [
-    "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Turso/SQLite"
+    "React",
+    "Next.js",
+    "TypeScript",
+    "JavaScript (ES6+)",
+    "Tailwind CSS",
+    "HTML5 / CSS3",
+    "Node.js",
+    "Ruby on Rails",
+    "Hotwire (Turbo / Stimulus)",
+    "Playwright",
+    "Turso / SQLite",
+    "PostgreSQL",
+    "REST APIs",
+    "Git / GitHub",
   ];
 
   const [activeSection, setActiveSection] = useState<string>('about');
@@ -499,79 +530,147 @@ function App() {
             </div>
             <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
               <span className="font-medium text-slate-600 dark:text-slate-300">{copy[lang].secondaryStackPrefix}:</span>{" "}
-              Vue 3, Angular, Jest, Cypress, Docker, AWS
+              Vue 3, Angular, Jest, Cypress, Docker, AWS, CI/CD
             </p>
           </div>
         </section>
 
-        {/* Featured Project */}
+        {/* Featured Projects */}
         <section id="featured-project" className="scroll-mt-24">
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
             {copy[lang].projectSectionTitle}
           </h2>
 
-          <div className="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 p-6 md:p-8 backdrop-blur-sm shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 p-2.5 flex items-center justify-center shrink-0 shadow-sm">
-                  <img
-                    src="/bipfly-icon.svg"
-                    alt="BipFly Logo"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2.5 flex-wrap">
-                    <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
-                      BipFly
-                    </h3>
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                      {copy[lang].projectBadge}
-                    </span>
+          <div className="space-y-6">
+            {/* BipFly */}
+            <div className="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 p-6 md:p-8 backdrop-blur-sm shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 p-2.5 flex items-center justify-center shrink-0 shadow-sm">
+                    <img
+                      src="/bipfly-icon.svg"
+                      alt="BipFly Logo"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
-                  <p className="text-sm font-medium text-violet-600 dark:text-violet-400 mt-0.5">
-                    {copy[lang].projectTagline}
-                  </p>
+                  <div>
+                    <div className="flex items-center gap-2.5 flex-wrap">
+                      <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+                        BipFly
+                      </h3>
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        {copy[lang].bipflyBadge}
+                      </span>
+                    </div>
+                    <p className="text-sm font-medium text-violet-600 dark:text-violet-400 mt-0.5">
+                      {copy[lang].bipflyTagline}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+                  <a
+                    href="https://bipfly.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-sm font-medium shadow-sm transition-colors"
+                  >
+                    <span>{copy[lang].bipflyLiveButton}</span>
+                    <ExternalLink size={15} />
+                  </a>
+                  <a
+                    href="https://github.com/gabitomasini/bipfly-app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-medium transition-colors shadow-sm"
+                  >
+                    <Github size={15} />
+                    <span>{copy[lang].projectCodeButton}</span>
+                  </a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
-                <a
-                  href="https://bipfly.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-sm font-medium shadow-sm transition-colors"
-                >
-                  <span>{copy[lang].projectLiveButton}</span>
-                  <ExternalLink size={15} />
-                </a>
-                <a
-                  href="https://github.com/gabitomasini/bipfly-app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-medium transition-colors shadow-sm"
-                >
-                  <Github size={15} />
-                  <span>{copy[lang].projectCodeButton}</span>
-                </a>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                {copy[lang].bipflyDescription}
+              </p>
+
+              <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+                {bipflyTechs.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1 bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
             </div>
 
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-              {copy[lang].projectDescription}
-            </p>
+            {/* SERP Lab */}
+            <div className="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 p-6 md:p-8 backdrop-blur-sm shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 p-2.5 flex items-center justify-center shrink-0 shadow-sm">
+                    <img
+                      src="/serp-lab-icon.svg"
+                      alt="SERP Lab Logo"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2.5 flex-wrap">
+                      <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+                        SERP Lab
+                      </h3>
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        {copy[lang].serpLabBadge}
+                      </span>
+                    </div>
+                    <p className="text-sm font-medium text-violet-600 dark:text-violet-400 mt-0.5">
+                      {copy[lang].serpLabTagline}
+                    </p>
+                  </div>
+                </div>
 
-            <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/80">
-              {projectTechs.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300"
-                >
-                  {tech}
-                </span>
-              ))}
+                <div className="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+                  <a
+                    href="https://serp-lab.onrender.com/playground"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-sm font-medium shadow-sm transition-colors"
+                  >
+                    <span>{copy[lang].serpLabLiveButton}</span>
+                    <ExternalLink size={15} />
+                  </a>
+                  <a
+                    href="https://github.com/gabitomasini/serp-lab"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-medium transition-colors shadow-sm"
+                  >
+                    <Github size={15} />
+                    <span>{copy[lang].projectCodeButton}</span>
+                  </a>
+                </div>
+              </div>
+
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                {copy[lang].serpLabDescription}
+              </p>
+
+              <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+                {serpLabTechs.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1 bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </section>
