@@ -11,6 +11,8 @@ function App() {
   };
   type Experience = {
     company: string;
+    badge?: string;
+    badgeDotColor?: string;
     totalDuration: Record<Lang, string>;
     positions: Position[];
   };
@@ -62,7 +64,7 @@ function App() {
       aboutTitle: 'About Me',
       aboutText: (
         <>
-          Frontend Engineer with 5 years of experience building web applications and developer tools. I bridge the gap between design concepts and production code—specializing in server-rendered applications, Tailwind CSS, and clean semantic HTML. Adopting <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> with AI-assisted tools (Cursor, OpenSpec), I accelerate feature prototyping while maintaining full ownership of code quality, performance, and UI polish for complex data interfaces.
+          Frontend Engineer with 5+ years of experience building high-impact web applications across high-growth startups (B2B SaaS, Healthtech) and large-scale enterprise environments (Fintech). I bridge the gap between design concepts and production code—specializing in server-rendered applications, Tailwind CSS, and clean semantic HTML. Adopting <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> with AI-assisted tools (Cursor, OpenSpec), I accelerate feature prototyping while maintaining full ownership of code quality, performance, and UI polish for complex data interfaces.
         </>
       ),
       projectSectionTitle: 'Featured Projects',
@@ -105,7 +107,7 @@ function App() {
       aboutTitle: 'Sobre mim',
       aboutText: (
         <>
-          Engenheira de Frontend com 5 anos de experiência na criação de aplicações web e ferramentas para desenvolvedores. Conecto conceitos de design ao código em produção, com especialidade em aplicações renderizadas no servidor, Tailwind CSS e HTML semântico. Adotando <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> com ferramentas assistidas por IA (Cursor, OpenSpec), acelero a prototipagem de funcionalidades mantendo controle total sobre a qualidade do código, performance e acabamento visual em interfaces de dados complexos.
+          Engenheira Frontend com 5+ anos de experiência na construção de aplicações web de alto impacto, transitando entre startups de rápido crescimento (B2B SaaS, Healthtech) e ambientes corporativos de grande escala (Fintech). Conecto conceitos de design ao código em produção, com especialidade em aplicações renderizadas no servidor, Tailwind CSS e HTML semântico. Adotando <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> com ferramentas assistidas por IA (Cursor, OpenSpec), acelero a prototipagem de funcionalidades mantendo controle total sobre a qualidade do código, performance e acabamento visual em interfaces de dados complexos.
         </>
       ),
       projectSectionTitle: 'Projetos em Destaque',
@@ -142,47 +144,49 @@ function App() {
 
   const brqDescriptions: Record<'junior' | 'technician' | 'intern', Record<Lang, string>> = {
     junior: {
-      en: `- Developed microfrontends using Angular, TypeScript/JavaScript, HTML, CSS, and Voxel (Itaú’s design system).
-- Implemented unit tests with Jest, end-to-end testing with Cypress, and versioning with Git under AWS-managed CI/CD infrastructure.
-- Actively participated in technical discussions and refinement to modernize legacy systems and improve user experience.`,
-      pt: `- Desenvolvimento de microfrontends utilizando Angular, TypeScript/JavaScript, HTML, CSS e Voxel (o design system do Itaú).
-- Implementação de testes unitários com Jest, testes ponta a ponta com Cypress e versionamento com Git sob infraestrutura de CI/CD gerenciada pela AWS.
-- Participação ativa em discussões técnicas e refinamentos para modernizar sistemas legados e aprimorar a experiência do usuário.`,
+      en: `- Developed mission-critical microfrontends at enterprise scale for Latin America's largest private bank, operating under strict security, regulatory compliance, and accessibility standards using Angular, TypeScript, HTML, CSS, and Voxel (Itaú’s design system).
+- Implemented comprehensive unit tests with Jest, end-to-end testing with Cypress, and CI/CD pipelines managed via AWS to ensure ultra-high stability and fault tolerance across high-volume financial transactions.
+- Actively participated in technical refinements and architectural modernizations of legacy banking platforms to improve latency and user experience.`,
+      pt: `- Desenvolvimento de microfrontends de missão crítica em escala enterprise para o maior banco privado da América Latina, atuando sob rigorosos padrões de conformidade regulatória, segurança e acessibilidade com Angular, TypeScript, HTML, CSS e Voxel (design system do Itaú).
+- Implementação de testes unitários com Jest, testes ponta a ponta com Cypress e esteiras de CI/CD gerenciadas na AWS para assegurar estabilidade e tolerância a falhas em sistemas de altíssimo volume de transações financeiras.
+- Participação ativa em refinamentos técnicos e na modernização arquitetural de sistemas bancários legados para aprimorar performance e experiência do usuário.`,
     },
     technician: {
-      en: `- Built microfrontends with Angular, TypeScript, HTML, and CSS.
-- Implemented regression test suites using Cypress to ensure application stability.`,
-      pt: `- Construção de microfrontends com Angular, TypeScript, HTML e CSS.
-- Implementação de suítes de testes de regressão com Cypress para garantir a estabilidade das aplicações.`,
+      en: `- Built enterprise microfrontends with Angular, TypeScript, HTML, and CSS under strict corporate development guidelines.
+- Implemented regression test suites using Cypress to ensure application stability in high-scale banking environments.`,
+      pt: `- Construção de microfrontends corporativos com Angular, TypeScript, HTML e CSS seguindo diretrizes rígidas de desenvolvimento.
+- Implementação de suítes de testes de regressão com Cypress para garantir a estabilidade de aplicações em ambiente bancário de alta escala.`,
     },
     intern: {
-      en: `- Gained hands-on experience developing microfrontends using Angular, TypeScript, HTML, and CSS.`,
-      pt: `- Experiência prática no desenvolvimento de microfrontends utilizando Angular, TypeScript, HTML e CSS.`,
+      en: `- Gained hands-on experience developing microfrontends using Angular, TypeScript, HTML, and CSS in enterprise systems.`,
+      pt: `- Experiência prática no desenvolvimento de microfrontends utilizando Angular, TypeScript, HTML e CSS em sistemas corporativos.`,
     },
   };
 
   const charismaDescriptions: Record<Lang, string> = {
-    en: `- Delivered full-cycle software development, managing everything from data modeling to implementing AI-driven solutions for internal process optimization.
+    en: `- Delivered full-cycle (0 to 1) software development in a fast-paced, high-growth startup environment, managing everything from architectural design and data modeling to shipping production features and AI-driven solutions for process optimization.
 - Applied Spec-Driven Development (SDD) using OpenSpec and Cursor to structure clear system specifications, accelerating full-stack feature delivery.
-- Engineered full-stack applications (Node.js, Next.js, PostgreSQL) focused on performance and legacy system scalability.
+- Engineered high-performance, full-stack applications (Node.js, Next.js, PostgreSQL) focused on system scalability and responsive user experiences.
 - Applied Prompt Engineering to automate editorial workflows and structure unformatted data using AI.
 - Built complex React dashboards integrating audit workflows and structured log monitoring.
 - Managed modern infrastructure using Docker, Kubernetes, and CI/CD pipelines, alongside AWS storage and SSO security integrations.`,
-    pt: `- Atuação no ciclo completo de software, desde a modelagem de dados até a implementação de soluções baseadas em IA para otimização de processos internos.
+    pt: `- Atuação de ponta a ponta (full-cycle / 0 to 1) em um ambiente dinâmico e de rápido crescimento (fast-paced startup), gerenciando desde o design de arquitetura e modelagem de dados até a entrega de features em produção e soluções baseadas em IA para otimização de processos.
 - Aplicação de Spec-Driven Development (SDD) com OpenSpec e Cursor para estruturar especificações claras de sistema, acelerando a entrega de funcionalidades full-stack.
-- Desenvolvimento de aplicações Full Stack (Node.js, Next.js, PostgreSQL) com foco em performance e escalabilidade de sistemas legados.
+- Desenvolvimento de aplicações Full Stack de alta performance (Node.js, Next.js, PostgreSQL) com foco em escalabilidade e experiência do usuário.
 - Aplicação de Prompt Engineering para automação de tarefas editoriais e estruturação de dados não formatados via IA.
 - Construção de dashboards de alta complexidade com React, integrando fluxos de auditoria e monitoramento de logs.
 - Gestão de infraestrutura com Docker, Kubernetes e CI/CD, além de integração de storage e segurança via AWS e SSO.`,
   };
 
   const aliceDescriptions: Record<Lang, string> = {
-    en: `- Developed functional and high-performing frontend interfaces using Vue 3 and Jest for administrative member support systems.
-- Collaborated on AI initiatives, integrating internal systems with OpenAI solutions to increase service scalability, agility, and efficiency.
-- Ensured high code quality and test coverage aligned with business goals within a high-performing team.`,
-    pt: `- Desenvolvimento de interfaces frontend funcionais e de alta performance utilizando Vue 3 e Jest para sistemas de atendimento administrativo de membros.
-- Colaboração em iniciativas de IA, integrando sistemas internos com soluções da OpenAI para aumentar escalabilidade, agilidade e eficiência nos atendimentos.
-- Garantia de alta qualidade de código e cobertura de testes alinhada aos objetivos estratégicos do negócio em um time de alto nível.`,
+    en: `- Worked in autonomous, agile product squads building high-performing and intuitive frontend interfaces (Vue 3, Jest) dedicated to member experience and health operations support.
+- Collaborated closely with product managers and designers to translate complex healthtech workflows into seamless user journeys with high accessibility and UI polish.
+- Collaborated on AI initiatives, integrating internal systems with OpenAI solutions to increase service scalability, agility, and operational efficiency.
+- Maintained high standards of code quality, performance, and unit test coverage aligned with business outcomes in a high-velocity scale-up setting.`,
+    pt: `- Atuação em squads ágeis de produto com alta autonomia, desenvolvendo interfaces frontend de alta performance e intuitivas (Vue 3, Jest) diretamente focadas na experiência do membro e suporte a operações de saúde.
+- Colaboração estreita com designers e product managers para transformar fluxos complexos de healthtech em jornadas fluidas, com forte refinamento de UI e acessibilidade.
+- Colaboração em iniciativas de IA, integrando sistemas internos com soluções da OpenAI para aumentar escalabilidade, agilidade e eficiência operacional.
+- Manutenção de rigorosos padrões de qualidade de código, performance e cobertura de testes alinhados aos objetivos estratégicos em um ambiente de scale-up de ritmo acelerado.`,
   };
 
   const getDynamicDuration = (startDate: Date, endDate: Date = new Date()): Record<Lang, string> => {
@@ -215,7 +219,9 @@ function App() {
 
   const experiences: Experience[] = [
     {
-      company: "charisma business intelligence",
+      company: "Charisma Business Intelligence (Charisma BI)",
+      badge: "STARTUP · B2B SAAS",
+      badgeDotColor: "bg-amber-500",
       totalDuration: { en: 'Current Role', pt: 'Cargo atual' },
       positions: [
         {
@@ -231,6 +237,8 @@ function App() {
     },
     {
       company: "Alice",
+      badge: "SCALE-UP · HEALTHTECH",
+      badgeDotColor: "bg-emerald-500",
       totalDuration: { en: '7 months', pt: '7 meses' },
       positions: [
         {
@@ -242,26 +250,34 @@ function App() {
       ],
     },
     {
-      company: "BRQ Digital Solutions",
+      company: "Itaú Unibanco (via BRQ)",
+      badge: "ENTERPRISE · CORE BANKING",
+      badgeDotColor: "bg-blue-600",
       totalDuration: { en: '2 years 9 months', pt: '2 anos 9 meses' },
       positions: [
         {
           title: {
-            en: "Desenvolvedora Front-End Jr [Allocated at Itaú]",
-            pt: "Desenvolvedora Front-End Jr [Alocada no Itaú]",
+            en: "Frontend Engineer Jr",
+            pt: "Desenvolvedora Front-End Jr",
           },
           employmentType: { en: 'Full-time', pt: 'Tempo integral' },
           period: { en: 'Jan 2023 - May 2024 · 1 year 5 months', pt: 'jan de 2023 - mai de 2024 · 1 ano 5 meses' },
           description: brqDescriptions.junior,
         },
         {
-          title: "Técnico de sistemas",
+          title: {
+            en: "Systems Technician",
+            pt: "Técnico de sistemas",
+          },
           employmentType: { en: 'Full-time', pt: 'Tempo integral' },
           period: { en: 'May 2022 - Jan 2023 · 9 months', pt: 'mai de 2022 - jan de 2023 · 9 meses' },
           description: brqDescriptions.technician,
         },
         {
-          title: "Estágio em Desenvolvimento Front-End",
+          title: {
+            en: "Frontend Development Intern",
+            pt: "Estágio em Desenvolvimento Front-End",
+          },
           employmentType: { en: 'Internship', pt: 'Estágio' },
           period: { en: 'Sep 2021 - Apr 2022 · 8 months', pt: 'set de 2021 - abr de 2022 · 8 meses' },
           description: brqDescriptions.intern,
@@ -686,10 +702,20 @@ function App() {
               <div key={index} className="relative pl-8 border-l-2 border-slate-200 dark:border-slate-800 group">
                 <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-800 group-hover:bg-violet-600 transition-colors"></div>
                 <div className="space-y-4">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1">
                     <div>
-                      <h3 className="text-xl font-bold">{exp.company}</h3>
-                      <p className="text-violet-600 dark:text-violet-400 font-medium">{exp.totalDuration[lang]}</p>
+                      <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">{exp.company}</h3>
+                        {exp.badge && (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-mono text-[11px] font-semibold tracking-wider uppercase bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 text-slate-700 dark:text-slate-300">
+                            {exp.badgeDotColor && (
+                              <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${exp.badgeDotColor}`} aria-hidden="true" />
+                            )}
+                            <span>{exp.badge}</span>
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-violet-600 dark:text-violet-400 font-medium text-sm mt-0.5">{exp.totalDuration[lang]}</p>
                     </div>
                   </div>
 

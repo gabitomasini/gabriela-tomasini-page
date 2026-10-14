@@ -69,7 +69,7 @@ function generatePDF() {
   doc.setTextColor(31, 41, 55);
 
   const summaryText =
-    'Frontend Engineer with 5 years of experience building web applications and developer tools. I bridge the gap between design concepts and production code—specializing in server-rendered applications, Next.js, TypeScript, Tailwind CSS, and clean semantic HTML. Adopting Spec-Driven Development (SDD) with AI-assisted tools (Cursor, OpenSpec), I accelerate feature prototyping while maintaining full ownership of code quality, performance, and UI polish for complex data interfaces.';
+    'Frontend Engineer with 5+ years of experience building high-impact web applications across high-growth startups (B2B SaaS, Healthtech) and large-scale enterprise environments (Fintech). I bridge the gap between design concepts and production code—specializing in server-rendered applications, Next.js, TypeScript, Tailwind CSS, and clean semantic HTML. Adopting Spec-Driven Development (SDD) with AI-assisted tools (Cursor, OpenSpec), I accelerate feature prototyping while maintaining full ownership of code quality, performance, and UI polish for complex data interfaces.';
 
   const splitSummary = doc.splitTextToSize(summaryText, contentWidth);
   doc.text(splitSummary, margin, y);
@@ -123,9 +123,9 @@ function generatePDF() {
       company: 'Charisma Business Intelligence',
       period: 'Apr 2025 – Present | São Paulo, Brazil',
       bullets: [
-        'Delivered full-cycle software development, managing everything from data modeling to implementing AI-driven solutions for internal process optimization.',
+        'Delivered full-cycle (0 to 1) software development in a fast-paced, high-growth startup environment, managing data modeling, full-stack architecture, and AI-driven solutions for process optimization.',
         'Applied Spec-Driven Development (SDD) using OpenSpec and Cursor to structure clear system specifications, accelerating full-stack feature delivery.',
-        'Engineered full-stack applications (Node.js, Next.js, PostgreSQL) focused on performance and legacy system scalability.',
+        'Engineered high-performance full-stack applications (Node.js, Next.js, PostgreSQL) focused on system scalability and responsive UI.',
         'Applied Prompt Engineering to automate editorial workflows and structure unformatted data using AI.',
         'Built complex React dashboards integrating audit workflows and structured log monitoring.',
         'Managed modern infrastructure using Docker, Kubernetes, and CI/CD pipelines, alongside AWS storage and SSO security integrations.',
@@ -136,18 +136,18 @@ function generatePDF() {
       company: 'Alice',
       period: 'Jun 2024 – Dec 2024 | São Paulo, Brazil',
       bullets: [
-        'Developed responsive, high-performance web applications using Vue.js and modern frontend tooling.',
-        'Collaborated closely with product designers to implement pixel-perfect user interfaces and smooth user journeys.',
+        'Worked in autonomous, agile product squads building high-performing, intuitive frontend interfaces (Vue 3, Jest) dedicated to member experience in a healthtech scale-up.',
+        'Collaborated on AI initiatives with OpenAI solutions to scale healthcare workflows, ensuring robust test coverage and UI polish.',
       ],
     },
     {
       title: 'Frontend Engineer',
-      company: 'BRQ / Itaú Unibanco',
+      company: 'Itaú Unibanco (via BRQ)',
       period: 'Sep 2021 – May 2024 | São Paulo, Brazil',
       bullets: [
-        'Built scalable enterprise web interfaces using Angular, adhering to strict design system guidelines and security standards.',
+        'Engineered mission-critical microfrontends at enterprise scale for Latin America\'s largest private bank, operating under strict compliance, accessibility, and security standards.',
         'Developed microfrontends using Angular, TypeScript/JavaScript, HTML, CSS, and Voxel (Itaú’s design system).',
-        'Implemented unit tests with Jest, end-to-end testing with Cypress, and versioning with Git under AWS-managed CI/CD infrastructure.',
+        'Implemented comprehensive unit tests with Jest, end-to-end testing with Cypress, and versioning with Git under AWS-managed CI/CD infrastructure.',
       ],
     },
   ];
