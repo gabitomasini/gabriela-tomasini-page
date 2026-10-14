@@ -1,6 +1,73 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { Github, Linkedin, Mail, ExternalLink, FileText, GraduationCap } from 'lucide-react';
 
+type IndustryCategory = 'b2b-saas' | 'healthtech' | 'core-banking' | 'fintech' | 'legaltech';
+
+type IndustryBadgeConfig = {
+  label: string;
+  badgeStyle: string;
+  dotColor: string;
+};
+
+const INDUSTRY_BADGES: Record<IndustryCategory, IndustryBadgeConfig> = {
+  'b2b-saas': {
+    label: 'B2B SaaS · Startup',
+    badgeStyle: 'bg-amber-500/10 border-amber-500/25 text-amber-700 dark:text-amber-300',
+    dotColor: 'bg-amber-500',
+  },
+  healthtech: {
+    label: 'Healthtech · Startup',
+    badgeStyle: 'bg-emerald-500/10 border-emerald-500/25 text-emerald-700 dark:text-emerald-300',
+    dotColor: 'bg-emerald-500',
+  },
+  'core-banking': {
+    label: 'Core Banking · Enterprise',
+    badgeStyle: 'bg-blue-500/10 border-blue-500/25 text-blue-700 dark:text-blue-300',
+    dotColor: 'bg-blue-500',
+  },
+  fintech: {
+    label: 'Fintech · Scale-up',
+    badgeStyle: 'bg-indigo-500/10 border-indigo-500/25 text-indigo-700 dark:text-indigo-300',
+    dotColor: 'bg-indigo-500',
+  },
+  legaltech: {
+    label: 'Legaltech · Startup',
+    badgeStyle: 'bg-purple-500/10 border-purple-500/25 text-purple-700 dark:text-purple-300',
+    dotColor: 'bg-purple-500',
+  },
+};
+
+function EcosystemBadge({
+  category,
+  customLabel,
+  hasPulse = false,
+  className = '',
+}: {
+  category: IndustryCategory;
+  customLabel?: string;
+  hasPulse?: boolean;
+  className?: string;
+}) {
+  const config = INDUSTRY_BADGES[category];
+  if (!config) return null;
+
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border font-mono text-[11px] font-semibold tracking-wider uppercase ${config.badgeStyle} ${className}`}
+    >
+      {hasPulse ? (
+        <span className="relative flex h-1.5 w-1.5 shrink-0" aria-hidden="true">
+          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${config.dotColor}`} />
+          <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${config.dotColor}`} />
+        </span>
+      ) : (
+        <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${config.dotColor}`} aria-hidden="true" />
+      )}
+      <span>{customLabel || config.label}</span>
+    </span>
+  );
+}
+
 function App() {
   type Lang = 'en' | 'pt';
   type Position = {
@@ -11,8 +78,8 @@ function App() {
   };
   type Experience = {
     company: string;
-    badge?: string;
-    badgeDotColor?: string;
+    category?: IndustryCategory;
+    hasPingDot?: boolean;
     totalDuration: Record<Lang, string>;
     positions: Position[];
   };
@@ -57,14 +124,14 @@ function App() {
     en: {
       heroHeadline: 'Frontend Engineer',
       heroTagline:
-        'Building web applications with strong UI taste and end-to-end execution—from design concepts to production code.',
+        'Building high-impact web applications with strong UI taste, startup velocity, and end-to-end execution—from design concepts to production code.',
       metaLine: 'São Paulo, Brazil • 5+ years of experience',
       contactButton: 'Contact',
       resumeButton: 'Resume (PDF)',
       aboutTitle: 'About Me',
       aboutText: (
         <>
-          Frontend Engineer with 5+ years of experience building high-impact web applications across high-growth startups (B2B SaaS, Healthtech) and large-scale enterprise environments (Fintech). I bridge the gap between design concepts and production code—specializing in server-rendered applications, Tailwind CSS, and clean semantic HTML. Adopting <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> with AI-assisted tools (Cursor, OpenSpec), I accelerate feature prototyping while maintaining full ownership of code quality, performance, and UI polish for complex data interfaces.
+          Frontend Engineer with 5+ years of experience building high-impact web products across <strong className="font-semibold text-slate-900 dark:text-slate-100">fast-paced startups (B2B SaaS, Healthtech)</strong> and <strong className="font-semibold text-slate-900 dark:text-slate-100">large-scale enterprise environments (Core Banking)</strong>. I bring a strong product mindset and bridge the gap between design concepts and production code—specializing in server-rendered applications, Tailwind CSS, and clean semantic HTML. Adopting <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> with AI-assisted tools (Cursor, OpenSpec), I accelerate feature delivery while maintaining <strong className="font-semibold text-slate-900 dark:text-slate-100">full ownership</strong> of code quality, performance, and UI polish for complex data interfaces.
         </>
       ),
       projectSectionTitle: 'Featured Projects',
@@ -100,14 +167,14 @@ function App() {
     pt: {
       heroHeadline: 'Frontend Engineer',
       heroTagline:
-        'Criando aplicações web com forte senso de UI e execução de ponta a ponta — dos conceitos de design ao código em produção.',
+        'Criando aplicações web de alto impacto com forte senso de UI, velocidade de startup e execução de ponta a ponta — dos conceitos de design ao código em produção.',
       metaLine: 'São Paulo, Brasil • 5+ anos de experiência',
       contactButton: 'Contato',
       resumeButton: 'Currículo (PDF)',
       aboutTitle: 'Sobre mim',
       aboutText: (
         <>
-          Engenheira Frontend com 5+ anos de experiência na construção de aplicações web de alto impacto, transitando entre startups de rápido crescimento (B2B SaaS, Healthtech) e ambientes corporativos de grande escala (Fintech). Conecto conceitos de design ao código em produção, com especialidade em aplicações renderizadas no servidor, Tailwind CSS e HTML semântico. Adotando <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> com ferramentas assistidas por IA (Cursor, OpenSpec), acelero a prototipagem de funcionalidades mantendo controle total sobre a qualidade do código, performance e acabamento visual em interfaces de dados complexos.
+          Engenheira Frontend com 5+ anos de experiência na construção de produtos web de alto impacto, transitando entre <strong className="font-semibold text-slate-900 dark:text-slate-100">startups de ritmo acelerado (B2B SaaS, Healthtech)</strong> e <strong className="font-semibold text-slate-900 dark:text-slate-100">ambientes corporativos de grande escala (Setor Bancário)</strong>. Uno forte visão de produto à execução técnica, conectando conceitos de design a código de produção—especialista em aplicações renderizadas no servidor, Tailwind CSS e HTML semântico. Adotando <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> com ferramentas assistidas por IA (Cursor, OpenSpec), acelero a entrega de funcionalidades mantendo <strong className="font-semibold text-slate-900 dark:text-slate-100">total ownership</strong> sobre qualidade de código, performance e refino visual em interfaces de dados complexas.
         </>
       ),
       projectSectionTitle: 'Projetos em Destaque',
@@ -220,8 +287,8 @@ function App() {
   const experiences: Experience[] = [
     {
       company: "Charisma Business Intelligence (Charisma BI)",
-      badge: "STARTUP · B2B SAAS",
-      badgeDotColor: "bg-amber-500",
+      category: 'b2b-saas',
+      hasPingDot: true,
       totalDuration: { en: 'Current Role', pt: 'Cargo atual' },
       positions: [
         {
@@ -237,8 +304,7 @@ function App() {
     },
     {
       company: "Alice",
-      badge: "SCALE-UP · HEALTHTECH",
-      badgeDotColor: "bg-emerald-500",
+      category: 'healthtech',
       totalDuration: { en: '7 months', pt: '7 meses' },
       positions: [
         {
@@ -251,8 +317,7 @@ function App() {
     },
     {
       company: "Itaú Unibanco (via BRQ)",
-      badge: "ENTERPRISE · CORE BANKING",
-      badgeDotColor: "bg-blue-600",
+      category: 'core-banking',
       totalDuration: { en: '2 years 9 months', pt: '2 anos 9 meses' },
       positions: [
         {
@@ -429,9 +494,16 @@ function App() {
             {copy[lang].heroTagline}
           </p>
 
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-normal pt-1">
-            {copy[lang].metaLine}
-          </p>
+          <div className="pt-1">
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-normal">
+              {copy[lang].metaLine}
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <EcosystemBadge category="b2b-saas" />
+              <EcosystemBadge category="healthtech" />
+              <EcosystemBadge category="core-banking" />
+            </div>
+          </div>
         </div>
 
         {/* Action Buttons: Bordered links */}
@@ -706,13 +778,8 @@ function App() {
                     <div>
                       <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
                         <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">{exp.company}</h3>
-                        {exp.badge && (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-mono text-[11px] font-semibold tracking-wider uppercase bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 text-slate-700 dark:text-slate-300">
-                            {exp.badgeDotColor && (
-                              <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${exp.badgeDotColor}`} aria-hidden="true" />
-                            )}
-                            <span>{exp.badge}</span>
-                          </span>
+                        {exp.category && (
+                          <EcosystemBadge category={exp.category} hasPulse={exp.hasPingDot} />
                         )}
                       </div>
                       <p className="text-violet-600 dark:text-violet-400 font-medium text-sm mt-0.5">{exp.totalDuration[lang]}</p>

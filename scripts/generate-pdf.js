@@ -69,7 +69,7 @@ function generatePDF() {
   doc.setTextColor(31, 41, 55);
 
   const summaryText =
-    'Frontend Engineer with 5+ years of experience building high-impact web applications across high-growth startups (B2B SaaS, Healthtech) and large-scale enterprise environments (Fintech). I bridge the gap between design concepts and production code—specializing in server-rendered applications, Next.js, TypeScript, Tailwind CSS, and clean semantic HTML. Adopting Spec-Driven Development (SDD) with AI-assisted tools (Cursor, OpenSpec), I accelerate feature prototyping while maintaining full ownership of code quality, performance, and UI polish for complex data interfaces.';
+    'Frontend Engineer with 5+ years of experience building high-impact web products across fast-paced startups (B2B SaaS, Healthtech) and large-scale enterprise environments (Core Banking). I bring a strong product mindset and bridge the gap between design concepts and production code—specializing in server-rendered applications, Next.js, TypeScript, Tailwind CSS, and clean semantic HTML. Adopting Spec-Driven Development (SDD) with AI-assisted tools (Cursor, OpenSpec), I accelerate feature delivery while maintaining full ownership of code quality, performance, and UI polish for complex data interfaces.';
 
   const splitSummary = doc.splitTextToSize(summaryText, contentWidth);
   doc.text(splitSummary, margin, y);
