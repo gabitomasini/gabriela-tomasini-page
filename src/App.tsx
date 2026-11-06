@@ -1,5 +1,5 @@
 import { useState, useEffect, type ReactNode } from 'react';
-import { Github, Linkedin, Mail, ExternalLink, FileText, GraduationCap } from 'lucide-react';
+import { Github, Linkedin, Mail, ExternalLink, GraduationCap } from 'lucide-react';
 
 type IndustryCategory = 'b2b-saas' | 'healthtech' | 'core-banking' | 'fintech' | 'legaltech';
 
@@ -91,7 +91,6 @@ function App() {
     heroTagline: string;
     metaLine: string;
     contactButton: string;
-    resumeButton: string;
     aboutTitle: string;
     aboutText: ReactNode;
     projectSectionTitle: string;
@@ -127,11 +126,31 @@ function App() {
         'Building high-impact web applications with strong UI taste, startup velocity, and end-to-end execution—from design concepts to production code.',
       metaLine: 'São Paulo, Brazil • 5+ years of experience',
       contactButton: 'Contact',
-      resumeButton: 'Resume (PDF)',
       aboutTitle: 'About Me',
       aboutText: (
         <>
-          Frontend Engineer with 5+ years of experience building high-impact web products across <strong className="font-semibold text-slate-900 dark:text-slate-100">fast-paced startups (B2B SaaS, Healthtech)</strong> and <strong className="font-semibold text-slate-900 dark:text-slate-100">large-scale enterprise environments (Core Banking)</strong>. I bring a strong product mindset and bridge the gap between design concepts and production code—specializing in server-rendered applications, Tailwind CSS, and clean semantic HTML. Adopting <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> with AI-assisted tools (Cursor, OpenSpec), I accelerate feature delivery while maintaining <strong className="font-semibold text-slate-900 dark:text-slate-100">full ownership</strong> of code quality, performance, and UI polish for complex data interfaces.
+          <p>
+            Full Stack / Product Engineer with 5+ years of experience building high-impact web products across{' '}
+            <strong className="font-semibold text-slate-900 dark:text-slate-100">
+              fast-paced startups (B2B SaaS, Healthtech)
+            </strong>{' '}
+            and{' '}
+            <strong className="font-semibold text-slate-900 dark:text-slate-100">
+              large-scale enterprise environments (Core Banking)
+            </strong>
+            . Having built a rock-solid foundation in Frontend, I have evolved into an end-to-end engineer who brings a strong product mindset to bridge the gap between complex system architecture and polished user interfaces.
+          </p>
+          <p>
+            By pioneering{' '}
+            <strong className="font-semibold text-slate-900 dark:text-slate-100">
+              Spec-Driven Development (SDD)
+            </strong>{' '}
+            with advanced AI-assisted tools (Cursor, OpenSpec, LLM agents), I owned the entire feature lifecycle—from backend APIs to frontend delivery. This workflow allows me to drastically accelerate shipping cycles while maintaining{' '}
+            <strong className="font-semibold text-slate-900 dark:text-slate-100">
+              full ownership
+            </strong>{' '}
+            of code quality, performance, and UI polish for complex data interfaces.
+          </p>
         </>
       ),
       projectSectionTitle: 'Featured Projects',
@@ -170,11 +189,31 @@ function App() {
         'Criando aplicações web de alto impacto com forte senso de UI, velocidade de startup e execução de ponta a ponta — dos conceitos de design ao código em produção.',
       metaLine: 'São Paulo, Brasil • 5+ anos de experiência',
       contactButton: 'Contato',
-      resumeButton: 'Currículo (PDF)',
       aboutTitle: 'Sobre mim',
       aboutText: (
         <>
-          Engenheira Frontend com 5+ anos de experiência na construção de produtos web de alto impacto, transitando entre <strong className="font-semibold text-slate-900 dark:text-slate-100">startups de ritmo acelerado (B2B SaaS, Healthtech)</strong> e <strong className="font-semibold text-slate-900 dark:text-slate-100">ambientes corporativos de grande escala (Setor Bancário)</strong>. Uno forte visão de produto à execução técnica, conectando conceitos de design a código de produção—especialista em aplicações renderizadas no servidor, Tailwind CSS e HTML semântico. Adotando <strong className="font-semibold text-slate-900 dark:text-slate-100">Spec-Driven Development (SDD)</strong> com ferramentas assistidas por IA (Cursor, OpenSpec), acelero a entrega de funcionalidades mantendo <strong className="font-semibold text-slate-900 dark:text-slate-100">total ownership</strong> sobre qualidade de código, performance e refino visual em interfaces de dados complexas.
+          <p>
+            Engenheira Full Stack / Product Engineer com mais de 5 anos de experiência na construção de produtos web de alto impacto, transitando entre{' '}
+            <strong className="font-semibold text-slate-900 dark:text-slate-100">
+              startups de ritmo acelerado (B2B SaaS, Healthtech)
+            </strong>{' '}
+            e{' '}
+            <strong className="font-semibold text-slate-900 dark:text-slate-100">
+              ambientes corporativos de grande escala (Setor Bancário)
+            </strong>
+            . Com uma base sólida construída no Frontend, evoluí para uma atuação completa no ciclo de desenvolvimento, unindo uma forte visão de produto à execução técnica para conectar APIs e arquiteturas de sistemas a interfaces de alta performance.
+          </p>
+          <p>
+            Adotando{' '}
+            <strong className="font-semibold text-slate-900 dark:text-slate-100">
+              Spec-Driven Development (SDD)
+            </strong>{' '}
+            com ferramentas assistidas por IA (Cursor, OpenSpec e agentes de LLM), assumo a responsabilidade por toda a entrega das funcionalidades — do backend ao refino visual. Esse fluxo de trabalho me permite acelerar drasticamente o tempo de lançamento no mercado (time-to-market) mantendo{' '}
+            <strong className="font-semibold text-slate-900 dark:text-slate-100">
+              total ownership
+            </strong>{' '}
+            sobre a qualidade de código, performance e polimento de interfaces de dados complexas.
+          </p>
         </>
       ),
       projectSectionTitle: 'Projetos em Destaque',
@@ -421,21 +460,6 @@ function App() {
     }
   };
 
-  const handleDownloadResume = async () => {
-    try {
-      const { downloadResumePDF } = await import('./utils/generateResumePDF');
-      downloadResumePDF('Gabriela_Tomasini_Frontend_Engineer_CV.pdf');
-    } catch {
-      // Fallback: direct download link trigger
-      const link = document.createElement('a');
-      link.href = '/Gabriela_Tomasini_Frontend_Engineer_CV.pdf';
-      link.download = 'Gabriela_Tomasini_Frontend_Engineer_CV.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-violet-100 dark:selection:bg-violet-900">
       {/* Header / Hero */}
@@ -535,19 +559,6 @@ function App() {
             <Linkedin size={16} />
             <span>LinkedIn</span>
           </a>
-
-          <a 
-            href="/Gabriela_Tomasini_Frontend_Engineer_CV.pdf" 
-            download="Gabriela_Tomasini_Frontend_Engineer_CV.pdf"
-            onClick={(e) => {
-              e.preventDefault();
-              handleDownloadResume();
-            }}
-            className="hidden items-center gap-1.5 px-3.5 py-2 border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 rounded-xl text-sm font-medium transition-all shadow-xs cursor-pointer"
-          >
-            <FileText size={16} />
-            <span>{copy[lang].resumeButton}</span>
-          </a>
         </div>
       </header>
 
@@ -599,7 +610,9 @@ function App() {
               <span className="w-8 h-1 bg-violet-600 rounded-full"></span>
               {copy[lang].aboutTitle}
             </h2>
-            <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{copy[lang].aboutText}</p>
+            <div className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed space-y-4">
+              {copy[lang].aboutText}
+            </div>
           </div>
 
           <div>
